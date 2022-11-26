@@ -4,6 +4,7 @@ import { Category } from "../../models/Category";
 export async function updateCategory(req: Request, res: Response) {
   try {
     const { name, icon } = req.body;
+    const { categoryId } = req.params;
 
     if (!name) {
       res.status(200).json({ message: "Name is required!" });
@@ -11,7 +12,7 @@ export async function updateCategory(req: Request, res: Response) {
       res.status(200).json({ message: "Icon is required!" });
     }
 
-    await Category.updateOne({ name, icon });
+    await Category.findByIdAndUpdate(categoryId, { name, icon });
 
     res.status(200).json({ message: "Successfully updated" });
   } catch (error) {
