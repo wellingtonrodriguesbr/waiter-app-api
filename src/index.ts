@@ -1,10 +1,13 @@
+import "dotenv/config";
 import express from "express";
 import mongoose from "mongoose";
 import path from "node:path";
 import { router } from "./Router";
 
+const MONGODB_URI = process.env.MONGO_DB;
+
 mongoose
-  .connect("mongodb://localhost:27017")
+  .connect(MONGODB_URI || "")
   .then(() => {
     const app = express();
     app.use(
