@@ -10,6 +10,14 @@ mongoose
   .connect(MONGODB_URI || "")
   .then(() => {
     const app = express();
+    app.use((req, res, next) => {
+      res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+      res.setHeader("Access-Control-Allow-Methods", "*");
+      res.setHeader("Access-Control-Allow-Headers", "*");
+
+      next();
+    });
+
     app.use(
       "/uploads",
       express.static(path.resolve(__dirname, "..", "uploads"))
